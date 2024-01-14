@@ -1,0 +1,38 @@
+{
+  "name": "squipix/laravel-installer",
+  "description": "Laravel Installer by Squipix",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Squipix",
+      "email": "info@squipix.com"
+    }
+  ],
+  "credit": [
+    {
+      "name": "Squipix"
+    }
+  ],
+  "require": {
+    "php": ">=7.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "Squipix\\LaravelInstaller\\": "src/"
+    },
+    "files": [
+      "src/Helpers/functions.php"
+    ]
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Squipix\\LaravelInstaller\\Providers\\LaravelInstallerServiceProvider"
+      ]
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "minimum-stability": "stable"
+}
