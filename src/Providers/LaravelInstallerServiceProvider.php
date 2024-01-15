@@ -25,7 +25,7 @@ class LaravelInstallerServiceProvider extends ServiceProvider
     public function register()
     {
         $this->publishFiles();
-        $this->loadRoutesFrom(__DIR__.'/../Routes/web.php');
+        $this->loadRoutesFrom(__DIR__ . '/../Routes/web.php');
     }
 
     /**
@@ -37,9 +37,7 @@ class LaravelInstallerServiceProvider extends ServiceProvider
     {
         $router->middlewareGroup('install', [CanInstall::class]);
         $router->middlewareGroup('update', [CanUpdate::class]);
-        if (config('installer.core.check_settings_table')) {
-            $router->middlewareGroup('', [SettingsMiddleware::class]);
-        }
+        $router->middlewareGroup('', [SettingsMiddleware::class]);
     }
 
     /**
@@ -59,11 +57,10 @@ class LaravelInstallerServiceProvider extends ServiceProvider
         ], 'laravelinstaller');
 
         $this->loadViewsFrom(__DIR__ . '/../Views', 'installer');
-        
+
         $this->mergeConfigFrom(
-            __DIR__. '/../Config/installer.php',
+            __DIR__ . '/../Config/installer.php',
             'installer'
         );
-        
     }
 }

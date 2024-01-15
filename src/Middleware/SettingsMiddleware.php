@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Schema;
+
 class SettingsMiddleware
 {
     /**
@@ -20,15 +21,17 @@ class SettingsMiddleware
 
         try {
             $installedLogFile = storage_path('installed');
-            if (! file_exists($installedLogFile)) {
+            if (!file_exists($installedLogFile)) {
                 return redirect()->to(url('/') . '/install');
             }
-            DB::connection()->getPdo();
-            if (!(Schema::hasTable('general_settings') || Schema::hasTable('settings'))) {
-                if(file_exists($installedLogFile)){
-                    @unlink($installedLogFile);
+            if (config('installer.core.check_settings_table')) {
+                DB::connection()->getPdo();
+                if (!(Schema::hasTable('general_settings') || Schema::hasTable('settings'))) {
+                    if (file_exists($installedLogFile)) {
+                        @unlink($installedLogFile);
+                    }
+                    return redirect()->to(url('/') . '/install');
                 }
-                return redirect()->to(url('/') . '/install');
             }
             return $next($request);
         } catch (\Exception $e) {
